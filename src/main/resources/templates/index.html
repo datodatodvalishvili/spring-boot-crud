@@ -3,58 +3,49 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>მომხმარებლები</title>
+        <title>მოთხოვნილი სესხები</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
         <link rel="stylesheet" href="../css/shards.min.css">
     </head>
     <body>
-    <form ui-jp="parsley" th:action="@{/}" th:object="${UserFilter}" method="get">
-        <div class="container my-5">
-            <div class="col-sm-6">
-                სახელი: <input id="filterName" type="text" th:field="*{name}" class="form-control input-sm w-auto inline m-r"/>
-                პირადი N: <input id="filterPassportId" type="text" th:field="*{passportId}" class="form-control input-sm w-auto inline m-r"/>
-                <button class="md-btn md-fab m-b-sm indigo"><i class="fa fa-search"></i></button>
-            </div>
-        </div>
-    </form>
         <div th:switch="${users}" class="container my-5">
             <div class="row">
                 <div class="col-md-6">
                     <div th:case="*">
-                        <h2 class="my-5">მომხმარებლები</h2>
+                        <h2 class="my-5">მოთხოვნილი სესხები</h2>
                         <table class="table table-striped table-responsive-md">
                             <thead>
                                 <tr>
-                                    <th>სახელი</th>
-                                    <th>მეილი</th>
-                                    <th>ტელ. ნომერი</th>
                                     <th>პირადი N</th>
-                                    <th>ხელფასი</th>
-                                    <th>მისამართი</th>
+                                    <th>სახელი</th>
+                                    <th>გვარი</th>
                                     <th>დაბადების თარიღი</th>
-                                    <th>ქალაქი</th>
-                                    <th>კომპანია</th>
-                                    <th>პოზიცია</th>
-                                    <th>რედაქტირება</th>
+                                    <th>დამსაქმებელი</th>
+                                    <th>ხელფასი</th>
+                                    <th>თვიური დანახარჯი</th>
+                                    <th>მოთხოვნილი თანხა</th>
+                                    <th>მოთხოვნილი პერიოდი(დღე)</th>
+                                    <th>სტატუსი</th>
+                                    <th>სტატუსის შეცვლა</th>
                                     <th>წაშლა</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="user : ${users}">
-                                    <td th:text="${user.name}"></td>
-                                    <td th:text="${user.email}"></td>
-                                    <td th:text="${user.phoneNumber}"></td>
-                                    <td th:text="${user.passportId}"></td>
-                                    <td th:text="${user.salary}"></td>
-                                    <td th:text="${user.adress}"></td>
-                                    <td th:text="${user.birthDate}"></td>
-                                    <td th:text="${user.city}"></td>
-                                    <td th:text="${user.company}"></td>
-                                    <td th:text="${user.possition}"></td>
-                                    <td><a th:href="@{/edit/{id}(id=${user.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
-                                    <td><a th:href="@{/delete/{id}(id=${user.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+                                <tr th:each="loanApplication : ${users}">
+                                    <td th:text="${loanApplication.privateID}"></td>
+                                    <td th:text="${loanApplication.firstName}"></td>
+                                    <td th:text="${loanApplication.lastName}"></td>
+                                    <td th:text="${loanApplication.birthDate}"></td>
+                                    <td th:text="${loanApplication.employer}"></td>
+                                    <td th:text="${loanApplication.salary}"></td>
+                                    <td th:text="${loanApplication.monthlyLiabilities}"></td>
+                                    <td th:text="${loanApplication.requestedAmount}"></td>
+                                    <td th:text="${loanApplication.requestedTermDays}"></td>
+                                    <td th:text="${loanApplication.status}"></td>
+                                    <td><a th:href="@{/mark/{id}(id=${loanApplication.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
+                                    <td><a th:href="@{/delete/{id}(id=${loanApplication.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>
